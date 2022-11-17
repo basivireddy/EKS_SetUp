@@ -130,20 +130,6 @@ pipeline{
                 }
             }
         }
-        stage('owaps'){
-            steps{
-                script{
-                    sh '''
-                        helm repo add simplyzee https://charts.simplyzee.dev/
-                        helm upgrade --install "vuln-scan-$(date '+%Y-%m-%d-%H-%M-%S')-job" simplyzee/kube-owasp-zap \
-                            --set zapcli.debug.enabled=true \
-                            --set zapcli.spider.enabled=false \
-                            --set zapcli.recursive.enabled=false \
-                             --set zapcli.targetHost=example.com
-                    '''
-                }
-            }
-        }
         stage('Application_Urls') {
             steps{
                 script{
@@ -171,6 +157,20 @@ pipeline{
                     println "Jfrog_URL: http://${Jfrog_URL}"
                     println "Sonarqube_URL: http://${Sonarqube_URL}:9000"
                     println "Kibana_URL:  http://${Kibana_URL}:5601"
+                }
+            }
+        }        
+        stage('owaps'){
+            steps{
+                script{
+                    sh '''
+                        helm repo add simplyzee https://charts.simplyzee.dev/
+                        helm upgrade --install "vuln-scan-$(date '+%Y-%m-%d-%H-%M-%S')-job" simplyzee/kube-owasp-zap \
+                            --set zapcli.debug.enabled=true \
+                            --set zapcli.spider.enabled=false \
+                            --set zapcli.recursive.enabled=false \
+                             --set zapcli.targetHost=example.com
+                    '''
                 }
             }
         }
