@@ -155,28 +155,22 @@ pipeline{
                     Jfrog_URL = sh(
                                     label: "getUrl", 
                                     returnStdout: true, 
-                                    script: """
-                                        kubectl get svc | grep artifactory-artifactory-nginx | cut -d " " -f 11  
-                                    """
-                                ).trim()
+                                    script: "kubectl get svc | grep artifactory-artifactory-nginx | awk '{print \$4}'"
+                                  ).trim()
                     Sonarqube_URL = sh(
                                     label: "getUrl", 
                                     returnStdout: true, 
-                                    script: """
-                                        kubectl get svc | grep sonarqube-sonarqube | cut -d " " -f 21 
-                                    """
-                                ).trim()
+                                    script: "kubectl get svc | grep sonarqube-sonarqube | awk '{print \$4}'"
+                                  ).trim()
                     Kibana_URL = sh(
                                     label: "getUrl", 
                                     returnStdout: true, 
-                                    script: """
-                                        kubectl get svc | grep kibana | cut -d " " -f 28 
-                                    """
-                                ).trim()
+                                    script: "kubectl get svc | grep kibana | awk '{print \$4}'"
+                                  ).trim()
                     println "Jenkins_URL:  http://${Jenkins_URL}:8080"
                     println "Jfrog_URL: http://${Jfrog_URL}"
-                    println "Sonarqube_URL: http//${Sonarqube_URL}"
-                    println "Kibana_URL:  http://${Kibana_URL}"
+                    println "Sonarqube_URL: http://${Sonarqube_URL}:9000"
+                    println "Kibana_URL:  http://${Kibana_URL}:5601"
                 }
             }
         }
