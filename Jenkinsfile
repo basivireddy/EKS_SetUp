@@ -151,7 +151,7 @@ pipeline{
                                     label: "getUrl", 
                                     returnStdout: true, 
                                     script: """
-                                        kubectl get svc | grep jenkins | awk '{print $4}' 
+                                        kubectl get svc | grep jenkins | awk \'{print $4}\' 
                                     """
                                 ).trim()
                     Jfrog_URL = sh(
