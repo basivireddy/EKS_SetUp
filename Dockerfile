@@ -24,4 +24,4 @@ RUN apt-get -qq update && \
     chmod +x ./kubectl && \
     mv ./kubectl /usr/local/bin/kubectl && \
     curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash
-RUN jenkins-plugin-cli --plugins "blueocean:1.25.3 docker-workflow:1.28 pipeline-utility-steps:2.12.1 git:4.11.3 sonar:2.14 artifactory:3.16.2 ssh-agent ssh-credentials ssh-slaves ws-cleanup"
+RUN jenkins-plugin-cli --plugins "blueocean:1.25.3 docker-workflow:1.28 pipeline-utility-steps:2.12.1 git sonar:2.14 artifactory:3.16.2 ssh-agent ssh-credentials ssh-slaves ws-cleanup"
