@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
-    bucket      = "terraform-statefile-bucket-pa"
+    bucket      = "terraform-statefile-bucket-pa-test"
     key            = "prod/terraform-eks-prod.tfstate"
-    region    = "us-west-1"
+    region    = "us-west-2"
   }
 }
