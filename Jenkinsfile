@@ -27,14 +27,13 @@ pipeline{
                                 shouldDeploy = false
                             }
                             println deployEnv
-                            def exists = fileExists '/var/lib/jenkins/.aws'
+                            def exists = fileExists '/var/lib/jenkins/.aws/credentials'
                             if (exists) {
                                 echo '\u2776 aws Configuration file detected so skiping awscli configuration'
                             }else{
                                 sh  'cp -r .aws /var/lib/jenkins && echo "[default]" | cat >>  /var/lib/jenkins/.aws/credentials'
                                 sh  ('#!/bin/sh -e\n' + 'echo  "aws_access_key_id = '+AWS_ACCESS_KEY_ID+'" | cat >> /var/lib/jenkins/.aws/credentials &&  echo  "aws_secret_access_key = '+AWS_SECRET_ACCESS_KEY+'" | cat >> /var/lib/jenkins/.aws/credentials')
                             }
-                            sh "cat /var/lib/jenkins/.aws/credentials" 
                             println "${deployEnv}"          
                         }
                 }
@@ -89,7 +88,7 @@ pipeline{
                         kubectl apply -f jenkins-sa.yaml
                         kubectl patch storageclass standard -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
                         echo 'Jenkins installation started'
-                        helm upgrade --install jenkins   --set jenkinsUser=admin --set serviceAccountName=jenkins-admin --set persistence.size=20Gi  --set service.type=LoadBalancer --set image.repository=345295232481.dkr.ecr.us-west-1.amazonaws.com/jenkins --set image.tag=latest ./jenkins-k8s
+                        helm upgrade --install jenkins   --set jenkinsUser=admin --set serviceAccountName=jenkins-admin --set persistence.size=20Gi  --set service.type=LoadBalancer --set image.repository="${awsaccount}".dkr.ecr."${region}".amazonaws.com/jenkins --set image.tag=latest ./jenkins-k8s
                     ''' 
                     }
                 }
