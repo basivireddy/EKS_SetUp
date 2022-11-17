@@ -151,7 +151,7 @@ pipeline{
                                     label: "getUrl", 
                                     returnStdout: true, 
                                     script: """
-                                        kubectl get svc | grep jenkins | cut -d " " -f 35  
+                                        kubectl get svc | grep jenkins | awk '{print $4}' 
                                     """
                                 ).trim()
                     Jfrog_URL = sh(
@@ -175,7 +175,7 @@ pipeline{
                                         kubectl get svc | grep kibana | cut -d " " -f 28 
                                     """
                                 ).trim()
-                    println "Jenkins_URL:  http://${Jenkins_URL}"
+                    println "Jenkins_URL:  http://${Jenkins_URL}:8080"
                     println "Jfrog_URL: http://${Jfrog_URL}"
                     println "Sonarqube_URL: http//${Sonarqube_URL}"
                     println "Kibana_URL:  http://${Kibana_URL}"
