@@ -29,11 +29,12 @@ pipeline{
                             println deployEnv
                             def exists = fileExists '/var/lib/jenkins/.aws'
                             if (exists) {
-                                echo '\u2776 aws Configuration file detected so skiping awscli configuration'  
+                                echo '\u2776 aws Configuration file detected so skiping awscli configuration'
                             }else{
                                 sh  'cp -r .aws /var/lib/jenkins && echo "[default]" | cat >>  /var/lib/jenkins/.aws/credentials'
                                 sh  ('#!/bin/sh -e\n' + 'echo  "aws_access_key_id = '+AWS_ACCESS_KEY_ID+'" | cat >> /var/lib/jenkins/.aws/credentials &&  echo  "aws_secret_access_key = '+AWS_SECRET_ACCESS_KEY+'" | cat >> /var/lib/jenkins/.aws/credentials')
                             }
+                            sh "cat /var/lib/jenkins/.aws/credentials" 
                             println "${deployEnv}"          
                         }
                 }
