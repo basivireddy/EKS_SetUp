@@ -1,0 +1,2 @@
+terraform/Environments/nonprod/.terraform*
+terraform/Environments/prod/.terraform*

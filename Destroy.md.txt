@@ -1,0 +1,34 @@
+Destroying Infra:
+
+Prerequisities : 
+Dokcer
+Install Helm 
+AWS CLI 
+
+
+Example for Nodprod.
+
+First we need to Destroy helm releses which is deployed on eks then Eks, bastion and VPC.
+
+Setup awscli and Run below commands from any terminal 
+
+aws eks update-kubeconfig --name nonprod-ekscluster
+
+Uninstall Helm releases:
+
+#helm ls --all --short | xargs -L1 helm delete
+
+Destroy Eks:
+Go to eks_provison folder and run below commands
+
+#cd terraform/Environments/nonprod
+#terraform init -reconfigure --var-file=nonprod.tfvars
+#terraform destroy  --var-file=nonprod.tfvars
+
+
+Destroy Base infra Vpc and bastion:
+Switch to jenkins_Provison folder and run below commands.
+
+#cd terraform/Environments/nonprod
+#terraform init -reconfigure --var-file=nonprod.tfvars
+#terraform destroy  --var-file=nonprod.tfvars
