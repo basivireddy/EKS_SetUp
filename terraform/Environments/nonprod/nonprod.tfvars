@@ -1,4 +1,4 @@
-region = "us-west-2"
+region = "us-east-1"
 profile = "default"
 key_name = "bastionloginkey-nonprod"
 cluster_name = "nonprod-eks-cluster"
